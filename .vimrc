@@ -25,12 +25,18 @@ Plugin 'mattn/emmet-vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-expand-region'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'Konfekt/FastFold'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/LargeFile'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
 
 " status bar themes plugins and icons
 Plugin 'Lokaltog/vim-powerline'
@@ -63,12 +69,15 @@ set cursorline          " highlight current line
 set expandtab
 set hlsearch            " highlight matches
 set incsearch           " search as characters are entered
+set ignorecase smartcase
 set number
 set relativenumber
 set shiftwidth=2
 set showmatch           " highlight matching [{()}]
 set softtabstop=2
 set tabstop=2
+set smarttab
+set autoindent
 
 " GitGutter
 set updatetime=250
@@ -79,11 +88,15 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline_powerline_fonts = 1
-let g:airline_theme='dark'
+let g:airline_theme="dark"
 set guifont=Anonymous\ Pro\ for\ Powerline
 set laststatus=2
 
 " ColorScheme
+" set t_Co=256
+" set t_AB=[48;5;%dm
+" set t_AF=[38;5;%dm
+
 set t_8f=[38;2;%lu;%lu;%lum
 set t_8b=[48;2;%lu;%lu;%lum
 set termguicolors
@@ -112,7 +125,7 @@ nmap <silent> <leader>f :NERDTreeTabsToggle<CR>
 " Treat long lines as break lines (useful when moving around in them)
 nmap j gj
 nmap k gk
-noremap <leader>q :q<cr>
+noremap <leader>q :qa<cr>
 nnoremap <leader> :w<cr>
 
 " This allows buffers to be hidden if you've modified a buffer.
@@ -209,3 +222,34 @@ nmap cx <Plug>(Exchange)
 vmap X <Plug>(Exchange)
 nmap cxc <Plug>(ExchangeClear)
 nmap cxx <Plug>(ExchangeLine)
+
+let g:LargeFile = 20
+
+" Folding
+" You can close all folds with zM. If you have nested folds and you want to fold
+" level by level, use zm. To open folds use zR (all) and zr (level by level).
+if has('folding')
+  if has('windows')
+    let &fillchars='vert: '           " less cluttered vertical window separators
+  endif
+  set foldmethod=syntax               " not as cool as syntax, but faster
+  set foldlevelstart=99               " start unfolded
+
+  let javaScript_fold=1         " JavaScript
+  let ruby_fold=1               " Ruby
+endif
+
+nnoremap <F5> :set invpaste paste?<Enter>
+imap <F5> <C-O><F5>
+set pastetoggle=<F5>
+
+" Auto save vim session on quit and auto reload on start
+let g:session_directory="~/.vim/session"
+let g:session_autoload="no"
+let g:session_autosave="no"
+let g:session_command_aliases = 1
+
+nnoremap <leader>so :OpenSession<space>
+nnoremap <leader>ss :SaveSession<space>
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
