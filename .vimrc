@@ -42,6 +42,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'raimondi/delimitmate'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'yuttie/comfortable-motion.vim'
+Plugin 'jiangmiao/auto-pairs'
 
 " status bar themes plugins and icons
 Plugin 'Lokaltog/vim-powerline'
