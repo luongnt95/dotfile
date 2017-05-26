@@ -43,6 +43,7 @@ Plugin 'raimondi/delimitmate'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'yuttie/comfortable-motion.vim'
 Plugin 'jiangmiao/auto-pairs'
+" Plugin 'Valloric/YouCompleteMe'
 
 " status bar themes plugins and icons
 Plugin 'Lokaltog/vim-powerline'
@@ -272,3 +273,12 @@ nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
+
+set list                              " show whitespace
+set listchars=nbsp:⦸                  " CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
+set listchars+=tab:▷┅                 " WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7)
+                                      " + BOX DRAWINGS HEAVY TRIPLE DASH HORIZONTAL (U+2505, UTF-8: E2 94 85)
+set listchars+=extends:»              " RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
+set listchars+=precedes:«             " LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
+set listchars+=trail:•                " BULLET (U+2022, UTF-8: E2 80 A2)
+set nojoinspaces                      " don't autoinsert two spaces after '.', '?', '!' for join command
