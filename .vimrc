@@ -37,6 +37,10 @@ Plugin 'vim-scripts/LargeFile'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
+Plugin 'godlygeek/tabular'
+Plugin 'majutsushi/tagbar'
+Plugin 'raimondi/delimitmate'
+Plugin 'christoomey/vim-tmux-navigator'
 
 " status bar themes plugins and icons
 Plugin 'Lokaltog/vim-powerline'
@@ -50,6 +54,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
 Plugin 'herrbischoff/cobalt2.vim'
 Plugin 'morhetz/gruvbox'
+Plugin 'flazz/vim-colorschemes'
 
 call vundle#end()
 filetype plugin indent on
@@ -81,6 +86,10 @@ set autoindent
 
 " GitGutter
 set updatetime=250
+
+nmap <Leader>gp <Plug>GitGutterPreviewHunk
+nmap <Leader>gu <Plug>GitGutterUndoHunk
+nmap <Leader>gs <Plug>GitGutterStageHunk
 
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
@@ -141,6 +150,7 @@ nmap <leader>l :bnext<CR>
 
 " Move to the previous buffer
 nmap <leader>h :bprevious<CR>
+
 
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
@@ -249,7 +259,14 @@ let g:session_autoload="no"
 let g:session_autosave="no"
 let g:session_command_aliases = 1
 
+" vim-session config
 nnoremap <leader>so :OpenSession<space>
 nnoremap <leader>ss :SaveSession<space>
 nnoremap <leader>sd :DeleteSession<CR>
 nnoremap <leader>sc :CloseSession<CR>
+
+" Tabular config
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
