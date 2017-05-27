@@ -43,7 +43,11 @@ Plugin 'raimondi/delimitmate'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'yuttie/comfortable-motion.vim'
 Plugin 'jiangmiao/auto-pairs'
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
 
 " status bar themes plugins and icons
 Plugin 'Lokaltog/vim-powerline'
@@ -137,8 +141,8 @@ nmap <silent> <leader>f :NERDTreeTabsToggle<CR>
 " Treat long lines as break lines (useful when moving around in them)
 nmap j gj
 nmap k gk
-noremap <leader>q :qa<cr>
-nnoremap <leader> :w<cr>
+noremap <leader>q :q<cr>
+nnoremap <leader>w :w<cr>
 
 " This allows buffers to be hidden if you've modified a buffer.
 " " This is almost a must if you wish to use buffers in this way.
@@ -157,7 +161,7 @@ nmap <leader>h :bprevious<CR>
 
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
-map <leader>bq :bp <BAR> bd #<CR>
+map <leader>x :bp <BAR> bd #<CR>
 
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
@@ -193,11 +197,11 @@ if executable('ag')
 endif
 
 " Use a leader instead of the actual named binding
-nmap <leader>o :CtrlP<cr>
+nmap <leader>o :CtrlPMixed<cr>
 
 " Easy bindings for its various modes
 nmap <leader>bb :CtrlPBuffer<cr>
-nmap <leader>bm :CtrlPMixed<cr>
+" nmap <leader>bm :CtrlPMixed<cr>
 nmap <leader>bs :CtrlPMRU<cr>
 
 vmap <Leader>y "+y
@@ -282,3 +286,26 @@ set listchars+=extends:»              " RIGHT-POINTING DOUBLE ANGLE QUOTATION M
 set listchars+=precedes:«             " LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
 set listchars+=trail:•                " BULLET (U+2022, UTF-8: E2 80 A2)
 set nojoinspaces                      " don't autoinsert two spaces after '.', '?', '!' for join command
+
+" You can use Ctrl+Space to trigger the completion suggestions anywhere, even without a string prefix. This is useful to see which top-level functions are available for use.
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+" let g:UltiSnipsEnableSnipMate = 0
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
+" <C-X><C-L> complete whole lines
+" <C-X><C-P> complete words (<C-P> has the same effect; <C-X> is not needed)
+" <C-X><C-F> complete file names
+" <C-X>s spelling suggestions (after :setl spell to enable spell checking)
