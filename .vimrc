@@ -14,36 +14,72 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'dyng/ctrlsf.vim'
+
+Plugin 'haya14busa/incsearch.vim'
+Plugin 'haya14busa/incsearch-fuzzy.vim'
+Plugin 'haya14busa/incsearch-easymotion.vim'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'ervandew/supertab'
+
+" Plugin 'ervandew/supertab'
+Plugin 'Konfekt/FastFold'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'gmarik/Vundle.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kana/vim-textobj-line'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kien/tabman.vim'
-Plugin 'mattn/emmet-vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'raimondi/delimitmate'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-expand-region'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tmhedberg/SimpylFold'
-Plugin 'Konfekt/FastFold'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 Plugin 'vim-scripts/LargeFile'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
-Plugin 'godlygeek/tabular'
-Plugin 'majutsushi/tagbar'
-Plugin 'raimondi/delimitmate'
-Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'yuttie/comfortable-motion.vim'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/limelight.vim'
+" Plugin 'lygaret/autohighlight.vim'
+Plugin 'takac/vim-hardtime'
+" let g:hardtime_default_on = 1
+
+Plugin 'justinmk/vim-sneak'
+" let g:sneak#streak = 1
+
+" Plugin 'tpope/vim-vinegar'
+
+" Reactjs
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+
+" HTML/CSS
+Plugin 'mattn/emmet-vim'
+
+" Python
+Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin 'vim-python/python-syntax'
+let g:python_highlight_all = 1
+
+" Ruby/Rails
+Plugin 'tpope/vim-rails'
+
+" Solidity
+Plugin 'tomlion/vim-solidity'
+
+" C/C++
+Plugin 'c.vim'
+
 " Track the engine.
 Plugin 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
@@ -55,13 +91,19 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
 " colorschemes plugins
-Plugin 'ajh17/Spacegray.vim'
+Plugin 'tyrannicaltoucan/vim-quantum'
+" Plugin 'ayu-theme/ayu-vim'
+Plugin 'drewtempelmeyer/palenight.vim'
+" Plugin 'ajh17/Spacegray.vim'
 Plugin 'akmassey/vim-codeschool'
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
-Plugin 'herrbischoff/cobalt2.vim'
+" Plugin 'herrbischoff/cobalt2.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'joshdick/onedark.vim'
+
+Plugin 'ryanoasis/vim-devicons'
 
 call vundle#end()
 filetype plugin indent on
@@ -90,6 +132,8 @@ set softtabstop=2
 set tabstop=2
 set smarttab
 set autoindent
+set ttyfast
+set lazyredraw
 
 " GitGutter
 set updatetime=250
@@ -105,19 +149,26 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline_powerline_fonts = 1
 let g:airline_theme="dark"
-set guifont=Anonymous\ Pro\ for\ Powerline
+" set guifont=Anonymous\ Pro\ for\ Powerline
+set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
 set laststatus=2
 
 " ColorScheme
-" set t_Co=256
+set t_Co=256
 " set t_AB=[48;5;%dm
 " set t_AF=[38;5;%dm
 
 set t_8f=[38;2;%lu;%lu;%lum
 set t_8b=[48;2;%lu;%lu;%lum
 set termguicolors
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme palenight
 set background=dark
+
+"Make comments italic
+" set t_ZH=[3m
+" set t_ZR=[23m
+" highlight Comment cterm=italic
 
 " NERDTree config
 autocmd StdinReadPre * let s:std_in=1
@@ -128,8 +179,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:NERDTreeWinPos = "left"
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-
 let NERDTreeAutoDeleteBuffer = 1 " Automatically delete the buffer of the file you just deleted with NerdTree
+let NERDTreeIgnore=['\.pyc$', '\.evm$', '\.disasm$', '\.disasm.log$', 'node_modules$[[dir]]' ,'\~$']
 
 " NerdCommenter config
 let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
@@ -138,6 +189,7 @@ let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
 let mapleader = " "
 nmap <silent> <leader>v :NERDTreeFind<CR>
 nmap <silent> <leader>f :NERDTreeTabsToggle<CR>
+" map <silent> <leader>t :NERDTreeToggle<CR> :NERDTreeMirror<CR>
 " Treat long lines as break lines (useful when moving around in them)
 nmap j gj
 nmap k gk
@@ -194,15 +246,20 @@ if executable('ag')
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
+
+  let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
 endif
 
 " Use a leader instead of the actual named binding
-nmap <leader>o :CtrlPMixed<cr>
+" nmap <leader>o :CtrlPMixed<cr>
+nmap <leader>bs :CtrlPMixed<cr>
 
 " Easy bindings for its various modes
 nmap <leader>bb :CtrlPBuffer<cr>
 " nmap <leader>bm :CtrlPMixed<cr>
-nmap <leader>bs :CtrlPMRU<cr>
+" nmap <leader>bs :CtrlPMRU<cr>
+nmap <leader>o :CtrlPMRU<cr>
 
 vmap <Leader>y "+y
 vmap <Leader>d "+d
@@ -240,11 +297,12 @@ vmap X <Plug>(Exchange)
 nmap cxc <Plug>(ExchangeClear)
 nmap cxx <Plug>(ExchangeLine)
 
-let g:LargeFile = 20
+let g:LargeFile = 1
 
 " Folding
 " You can close all folds with zM. If you have nested folds and you want to fold
 " level by level, use zm. To open folds use zR (all) and zr (level by level).
+
 if has('folding')
   if has('windows')
     let &fillchars='vert: '           " less cluttered vertical window separators
@@ -256,9 +314,9 @@ if has('folding')
   let ruby_fold=1               " Ruby
 endif
 
-nnoremap <F5> :set invpaste paste?<Enter>
-imap <F5> <C-O><F5>
-set pastetoggle=<F5>
+" nnoremap <F5> :set invpaste paste?<Enter>
+" imap <F5> <C-O><F5>
+" set pastetoggle=<F5>
 
 " Auto save vim session on quit and auto reload on start
 let g:session_directory="~/.vim/session"
@@ -289,17 +347,20 @@ set nojoinspaces                      " don't autoinsert two spaces after '.', '
 
 " You can use Ctrl+Space to trigger the completion suggestions anywhere, even without a string prefix. This is useful to see which top-level functions are available for use.
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+" make YouCompleteMe compatible with UltiSnips (using supertab)
+" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" let g:ycm_key_list_select_completion = ['<tab>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" let g:ycm_key_list_previous_completion = ['<s-tab>', '<Up>']
+" let g:SuperTabDefaultCompletionType = '<C-n>'
+" let g:SuperTabDefaultCompletionType = '<tab>'
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
 " let g:UltiSnipsEnableSnipMate = 0
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsExpandTrigger = "<c-k>"
+let g:UltiSnipsJumpForwardTrigger = "<c-k>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-c-j>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -309,3 +370,50 @@ let g:UltiSnipsEditSplit="vertical"
 " <C-X><C-P> complete words (<C-P> has the same effect; <C-X> is not needed)
 " <C-X><C-F> complete file names
 " <C-X>s spelling suggestions (after :setl spell to enable spell checking)
+
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
+" autocmd FileType * nested :call tagbar#autoopen(0)
+
+" IndentLine config
+let g:indentLine_fileTypeExclude=['help']
+let g:indentLine_bufNameExclude=['NERD_tree.*']
+
+" Ctrl-p
+let g:ctrlp_by_filename = 1
+
+" Reactjs
+let g:jsx_ext_required = 0
+
+" Easymotion
+" You can use other keymappings like <C-l> instead of <CR> if you want to
+" use these mappings as default search and somtimes want to move cursor with
+" EasyMotion.
+function! s:incsearch_config(...) abort
+  return incsearch#util#deepextend(deepcopy({
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {
+  \     "\<CR>": '<Over>(easymotion)'
+  \   },
+  \   'is_expr': 0
+  \ }), get(a:, 1, {}))
+endfunction
+
+noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
+noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
+
+function! s:config_easyfuzzymotion(...) abort
+  return extend(copy({
+  \   'converters': [incsearch#config#fuzzyword#converter()],
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+  \   'is_expr': 0,
+  \   'is_stay': 1
+  \ }), get(a:, 1, {}))
+endfunction
+
+noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
+" set exrc
+" set secure
+
